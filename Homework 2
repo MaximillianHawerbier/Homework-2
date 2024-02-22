@@ -1,0 +1,39 @@
+Lemma demorgan_exists : forall A : Set, forall P : A->Prop, (exists x : A, ~~P x) -> ~(forall y : A, ~P y).
+unfold not.
+intros A P H1 H2.
+destruct H1 as [x px].
+apply px in H2.
+exact H2.
+Qed.
+
+Lemma frobenius : forall A : Set, forall P : A->Prop, forall Q : Prop, (exists x : A, Q /\ P x) <-> Q /\ (exists x : A, P x).
+unfold not.
+intros A P Q.
+split.
+intros H1.
+split.
+destruct H1 as [x [q px]].
+exact q.
+destruct H1 as [x[q px]].
+exists x.
+exact px.
+intros H2.
+destruct H2 as [q px].
+destruct px.
+exists x.
+split.
+exact q.
+exact H.
+Qed.
+
+Lemma hodges : forall A : Set, forall P : A -> A -> Prop, (forall x : A, exists y : A, ~(P x y)) ->
+(~exists x : A, forall y : A, (P x y)).
+unfold not.
+intros A P H1 H2.
+destruct H2.
+pose (H2:= H1 x).
+destruct H2.
+apply H0.
+destruct H0.
+apply H.
+Qed.
