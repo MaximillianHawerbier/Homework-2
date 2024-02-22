@@ -1,4 +1,6 @@
+Require Import Arith.
 Lemma demorgan_exists : forall A : Set, forall P : A->Prop, (exists x : A, ~~P x) -> ~(forall y : A, ~P y).
+Proof.
 unfold not.
 intros A P H1 H2.
 destruct H1 as [x px].
@@ -7,6 +9,7 @@ exact H2.
 Qed.
 
 Lemma frobenius : forall A : Set, forall P : A->Prop, forall Q : Prop, (exists x : A, Q /\ P x) <-> Q /\ (exists x : A, P x).
+Proof.
 unfold not.
 intros A P Q.
 split.
@@ -26,8 +29,8 @@ exact q.
 exact H.
 Qed.
 
-Lemma hodges : forall A : Set, forall P : A -> A -> Prop, (forall x : A, exists y : A, ~(P x y)) ->
-(~exists x : A, forall y : A, (P x y)).
+Lemma hodges : forall A : Set, forall P : A -> A -> Prop, (forall x : A, exists y : A, ~(P x y)) -> (~exists x : A, forall y : A, (P x y)).
+Proof.
 unfold not.
 intros A P H1 H2.
 destruct H2.
